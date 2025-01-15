@@ -10,7 +10,7 @@ import QuizControll from "./QuizControll";
 
 export default function Question() {
   const dispatch = useAppDispatch()
-const {question,curentQuestionIndex} = useAppSelector((state)=>state.quiz)
+const {question,curentQuestionIndex,userAnswers} = useAppSelector((state)=>state.quiz)
 console.log(question,curentQuestionIndex);
 const curentQuestion = question[curentQuestionIndex];
 console.log(curentQuestion);
@@ -19,7 +19,8 @@ const handleAnsChange = (ans:string)=>{
  dispatch(setAnswer({questionIndex:curentQuestionIndex,answer:ans}))
  
 }
-
+const curentAnswer = userAnswers[curentQuestionIndex]
+console.log(curentAnswer);
 
 
   return (
@@ -30,7 +31,7 @@ const handleAnsChange = (ans:string)=>{
     </CardHeader>
     <CardContent >
       {
-        curentQuestion.options.map((option,index)=><Button onClick={()=>handleAnsChange(option)}  key={index} className="w-full mt-3 good" size={"lg"}>{option}</Button>)
+        curentQuestion.options.map((option,index)=><Button onClick={()=>handleAnsChange(option)}  key={index} className="w-full mt-3 " variant={option=== curentAnswer ?"default" :"outline"} size={"lg"} >{option}</Button>)
       }
      <QuizControll></QuizControll>
     </CardContent>
